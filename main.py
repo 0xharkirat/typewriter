@@ -14,7 +14,7 @@ def main(page: ft.Page):
         textarea.value = ""
         update_start_button_state()
 
-        
+
     # Function to update Start button state based on text change
     def update_start_button_state():
         if textarea.value.strip():  # Check if the text area is not empty
@@ -39,6 +39,7 @@ def main(page: ft.Page):
             textarea.read_only = True
             startButton.disabled = True
             clearText.disabled = True
+            loggerHeading.value = "Logs:"
             lv.controls.clear()
             page.update()
             logger_event("Typing will start in 5 seconds...")
@@ -71,7 +72,9 @@ def main(page: ft.Page):
 
     # UI
     page.title = "Automate Typewriter"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    
+    page.window_top = 0
+    page.window_height = 1080
 
     page.appbar = ft.AppBar(
        
@@ -88,7 +91,7 @@ def main(page: ft.Page):
                                 color=ft.colors.WHITE,)
     failSafeText = ft.Text("\"Move the mouse cursor to the top-left corner of screen to stop execution.\"")
     buttonRows = ft.Row(expand=0, controls=[startButton, clearText, failSafeText], )
-    loggerHeading = ft.Text("Logs:")
+    loggerHeading = ft.Text("Typing will start in 5 seconds. After pressing start, just leave your cursor where you want to type automatically.")
 
 
     lv = ft.ListView(expand=1, auto_scroll=True)
