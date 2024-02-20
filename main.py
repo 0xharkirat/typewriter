@@ -1,7 +1,7 @@
 import flet as ft
 import time
 import pyautogui
-import threading
+import webbrowser
 
 def main(page: ft.Page):
     # Function to log events
@@ -12,8 +12,9 @@ def main(page: ft.Page):
     # Function to clear text area.
     def clear_text_area(e):
         textarea.value = ""
-        page.update()
+        update_start_button_state()
 
+        
     # Function to update Start button state based on text change
     def update_start_button_state():
         if textarea.value.strip():  # Check if the text area is not empty
@@ -28,6 +29,8 @@ def main(page: ft.Page):
     def textarea_change(e):
         update_start_button_state()
 
+    def github_link(e):
+        webbrowser.open_new_tab("https://github.com/0xharkirat/typewriter")
 
     # Function to start typing
     def start_typing(e):
@@ -69,18 +72,36 @@ def main(page: ft.Page):
     # UI
     page.title = "Automate Typewriter"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
+
+    page.appbar = ft.AppBar(
+       
+        title=ft.Text("Automate TypeWriter"),
+        
+        
+        
+    )
    
 
-    textarea = ft.TextField(label="Paste text here.", multiline=True, min_lines=1, max_lines=20, on_change=textarea_change)
+    textarea = ft.TextField(label="Paste text here.", multiline=True, min_lines=1, max_lines=15, on_change=textarea_change)
     startButton = ft.ElevatedButton(text="Start Typing", disabled=True, on_click=start_typing, tooltip="Paste some text above first.")
     clearText = ft.ElevatedButton(text="Clear", on_click=clear_text_area, bgcolor=ft.colors.RED_300,
                                 color=ft.colors.WHITE,)
     failSafeText = ft.Text("\"Move the mouse cursor to the top-left corner of screen to stop execution.\"")
-    buttonRows = ft.Row(expand=0, controls=[startButton, clearText, failSafeText])
+    buttonRows = ft.Row(expand=0, controls=[startButton, clearText, failSafeText], )
+    loggerHeading = ft.Text("Logs:")
 
 
-    lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-    page.add(textarea, buttonRows, lv)
+    lv = ft.ListView(expand=1, auto_scroll=True)
+
+    github = ft.TextButton(text="Github Repo", on_click=github_link)
+    footerText = ft.Text("a 0xharkirat (Harkirat Singh) production.")
+    resourcesText = ft.Text("Made using Flet (Flutter apps in Python).")
+    
+
+    footerRow = ft.Row(expand=0, controls=[footerText, github, resourcesText])
+
+    divider = ft.Divider()
+    page.add(textarea, buttonRows, divider, loggerHeading, lv, divider, footerRow)
 
     
 
