@@ -9,7 +9,10 @@ Steps For MacOS:
 4. Go to Mac settings > privacy & security > accessibility > Add app & toggle on.
 5. All done.
 
-Windows app is coming soon...
+Steps for Windows:
+1. Download the windows zip.
+2. Extract the zip.
+3. Double click on typewriter.exe to run app.
 
 To contribute to the app:
 
